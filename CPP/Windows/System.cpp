@@ -6,6 +6,10 @@
 #include <unistd.h>
 #ifdef __APPLE__
 #include <sys/sysctl.h>
+#elif defined(__FreeBSD__)
+#include <sys/sysctl.h>
+#include <sys/vmmeter.h>
+#include <vm/vm_param.h> // VM_TOTAL
 #else
 #include <sys/sysinfo.h>
 #endif
@@ -73,21 +77,21 @@ BOOL CProcessAffinity::Get()
     CpuSet_Set(&cpu_set, i);
   return TRUE;
   */
-  
+
   #ifdef _7ZIP_AFFINITY_SUPPORTED
-  
+
   // numSysThreads = sysconf(_SC_NPROCESSORS_ONLN); // The number of processors currently online
   if (sched_getaffinity(0, sizeof(cpu_set), &cpu_set) != 0)
     return FALSE;
   return TRUE;
-  
+
   #else
-  
+
   // cpu_set = ((CCpuSet)1 << (numSysThreads)) - 1;
   return TRUE;
   // errno = ENOSYS;
   // return FALSE;
-  
+
   #endif
 }
 
@@ -135,7 +139,7 @@ typedef BOOL (WINAPI *GlobalMemoryStatusExP)(MY_LPMEMORYSTATUSEX lpBuffer);
 
 #endif // !UNDER_CE
 
-  
+
 bool GetRamSize(UInt64 &size)
 {
   size = (UInt64)(sizeof(size_t)) << 29;
@@ -144,16 +148,16 @@ bool GetRamSize(UInt64 &size)
     MY_MEMORYSTATUSEX stat;
     stat.dwLength = sizeof(stat);
   #endif
-  
+
   #ifdef _WIN64
-    
+
     if (!::GlobalMemoryStatusEx(&stat))
       return false;
     size = MyMin(stat.ullTotalVirtual, stat.ullTotalPhys);
     return true;
 
   #else
-    
+
     #ifndef UNDER_CE
       GlobalMemoryStatusExP globalMemoryStatusEx = (GlobalMemoryStatusExP)
           (void *)::GetProcAddress(::GetModuleHandleA("kernel32.dll"), "GlobalMemoryStatusEx");
@@ -163,7 +167,7 @@ bool GetRamSize(UInt64 &size)
         return true;
       }
     #endif
-  
+
     {
       MEMORYSTATUS stat2;
       stat2.dwLength = sizeof(stat2);
@@ -173,7 +177,7 @@ bool GetRamSize(UInt64 &size)
     }
   #endif
 }
-  
+
 #else
 
 // POSIX
@@ -204,6 +208,9 @@ bool GetRamSize(UInt64 &size)
   #elif defined(_AIX)
   // fixme
   #elif defined(__gnu_hurd__)
+  // fixme
+  #elif defined(__FreeBSD__)
+  // GNU/kFreeBSD Debian
   // fixme
   #elif defined(__FreeBSD_kernel__) && defined(__GLIBC__)
   // GNU/kFreeBSD Debian

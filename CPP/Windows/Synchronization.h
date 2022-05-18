@@ -310,7 +310,7 @@ public:
     this->_state = false;
     return this->_sync->Leave();
   }
-  
+
   virtual bool IsSignaledAndUpdate()
   {
     if (this->_state == false)
@@ -347,7 +347,7 @@ class CSemaphore_WFMO : public CBaseHandle_WFMO
 
 public:
   CSemaphore_WFMO() : _count(0), _maxCount(0) {}
-  
+
   WRes Close() { this->_sync = NULL; return 0; }
 
   WRes Create(CSynchro *sync, UInt32 initCount, UInt32 maxCount)
@@ -359,7 +359,7 @@ public:
     this->_maxCount = maxCount;
     return 0;
   }
-  
+
   WRes Release(UInt32 releaseCount = 1)
   {
     if (releaseCount < 1)

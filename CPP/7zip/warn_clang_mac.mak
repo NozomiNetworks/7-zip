@@ -6,7 +6,6 @@ CFLAGS_WARN_CLANG_3_8_UNIQ = \
 
 CFLAGS_WARN_CLANG_3_8 = \
   $(CFLAGS_WARN_CLANG_3_8_UNIQ) \
-  -Weverything \
   -Wno-extra-semi \
   -Wno-sign-conversion \
   -Wno-language-extension-token \

@@ -6,7 +6,6 @@ CFLAGS_WARN_CLANG_3_8_UNIQ = \
 
 CFLAGS_WARN_CLANG_3_8 = \
   $(CFLAGS_WARN_CLANG_3_8_UNIQ) \
-  -Weverything \
   -Wno-extra-semi \
   -Wno-sign-conversion \
   -Wno-language-extension-token \
@@ -30,8 +29,6 @@ CFLAGS_WARN_CLANG_12= $(CFLAGS_WARN_CLANG_3_8) \
 
 CFLAGS_WARN_1 = \
   -Wno-deprecated-copy-dtor \
-
-
 
 
 CFLAGS_WARN = $(CFLAGS_WARN_CLANG_12) $(CFLAGS_WARN_1)

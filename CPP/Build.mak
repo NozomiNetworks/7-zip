@@ -59,7 +59,6 @@ CFLAGS = $(CFLAGS) \
   -Werror \
   -Wextra \
   -Wall \
-  -Weverything \
   -Wno-extra-semi-stmt \
   -Wno-extra-semi \
   -Wno-zero-as-null-pointer-constant \
