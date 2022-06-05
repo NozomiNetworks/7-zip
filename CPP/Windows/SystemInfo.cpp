@@ -20,8 +20,8 @@
 
 #include <sys/auxv.h>
 
-// #undef AT_HWCAP    // to debug
-// #undef AT_HWCAP2   // to debug
+#undef AT_HWCAP    // to debug
+#undef AT_HWCAP2   // to debug
 
 /* the following patch for some debian systems.
    Is it OK to define AT_HWCAP and AT_HWCAP2 here with these constant numbers? */
