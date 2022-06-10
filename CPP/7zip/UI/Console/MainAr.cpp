@@ -181,7 +181,15 @@ int MainWrapper(int numArgs, char *args[])
 
 int MainLoop(int numArgs, char *args[])
 {
-  if (numArgs == 3)
+  if (numArgs == 2)
+  {
+    if (std::string(args[1]) == "iv")
+    {
+      std::cout << "0.0.1" << std::endl;
+      return 0;
+    }
+  }
+  else if (numArgs == 3)
   {
     if (std::string(args[1]) == "in")
     {
