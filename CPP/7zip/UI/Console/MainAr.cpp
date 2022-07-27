@@ -185,7 +185,7 @@ int MainLoop(int numArgs, char *args[])
   {
     if (std::string(args[1]) == "iv")
     {
-      std::cout << "0.0.1" << std::endl;
+      std::cout << "0.0.2" << std::endl;
       return 0;
     }
   }
@@ -203,7 +203,7 @@ int MainLoop(int numArgs, char *args[])
         }
         else
         {
-          size_t pos = 0;
+          std::size_t pos = 0;
           std::string arg;
           std::string s(buffer);
           const std::string delimiter = " ";
@@ -218,8 +218,15 @@ int MainLoop(int numArgs, char *args[])
           std::vector<char*> vecArgs;
           char dummy1stArg[] = "7zz";
           vecArgs.push_back(dummy1stArg);
+          bool hasFoundFilePath = false;
+          std::string filePath;
           for (unsigned long ii = 0; ii < parts.size(); ++ii)
           {
+            if (!hasFoundFilePath && ii >= 1 && !parts[ii].empty() && parts[ii][0] != '-')
+            {
+              filePath = parts[ii];
+              hasFoundFilePath = true;
+            }
             char * partData = const_cast<char*>(parts[ii].data());
             vecArgs.push_back(partData);
           }
@@ -227,9 +234,19 @@ int MainLoop(int numArgs, char *args[])
             static_cast<int>(parts.size() + 1),
             &vecArgs[0]
           );
-          std::ofstream outLock(lockFilePath);
-          outLock << "";
-          outLock.close();
+          std::string lockCheckFilePath = lockFilePath + ".check";
+          std::ofstream outCheckLock(lockCheckFilePath);
+          std::ifstream fin(filePath, std::ios::binary | std::ios::ate);
+          if (fin.good())
+          {
+            outCheckLock << fin.tellg();
+          }
+          else
+          {
+            outCheckLock << -1;
+          }
+          outCheckLock.close();
+          rename(lockCheckFilePath.c_str(), lockFilePath.c_str());
         }
       }
     }
