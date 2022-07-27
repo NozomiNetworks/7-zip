@@ -1,5 +1,1 @@
-This library is is a patched version of the 7-zip library that has been adapted to be compiled by the bit7zlib inside n2os.
-The patched version is in the nozioni-master branch and the original one is in the master branch
-
-N.B.: If any changes is done in the files here the updated files have to be placed also in the n2os dependencies
-cpp/src/deps/bit7z/third_party/7-zip in order to ensure that the same include files are used in bit7z
+Interactive version of 7zip to pipe commands easily to the process.
