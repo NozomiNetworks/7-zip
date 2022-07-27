@@ -241,10 +241,6 @@ int MainLoop(int numArgs, char *args[])
           {
             outCheckLock << fin.tellg();
           }
-          else
-          {
-            outCheckLock << -1;
-          }
           outCheckLock.close();
           rename(lockCheckFilePath.c_str(), lockFilePath.c_str());
         }
