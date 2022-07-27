@@ -227,7 +227,7 @@ int MainLoop(int numArgs, char *args[])
               filePath = parts[ii];
               hasFoundFilePath = true;
             }
-            char * partData = const_cast<char*>(parts[ii].data());
+            char* partData = const_cast<char*>(parts[ii].data());
             vecArgs.push_back(partData);
           }
           MainWrapper(
