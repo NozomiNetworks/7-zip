@@ -234,6 +234,7 @@ int MainLoop(int numArgs, char *args[])
             static_cast<int>(parts.size() + 1),
             &vecArgs[0]
           );
+          fflush(stdout);
           std::string lockCheckFilePath = lockFilePath + ".check";
           std::ofstream outCheckLock(lockCheckFilePath);
           std::ifstream fin(filePath, std::ios::binary | std::ios::ate);
@@ -264,7 +265,7 @@ int MY_CDECL main
   NT_CHECK
 
   NConsoleClose::CCtrlHandlerSetter ctrlHandlerSetter;
-  
+
   const int mainLoopRetVal = MainLoop(numArgs, args);
   if (mainLoopRetVal == -1)
   {
