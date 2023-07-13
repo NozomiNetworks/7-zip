@@ -185,7 +185,7 @@ int MainLoop(int numArgs, char *args[])
   {
     if (std::string(args[1]) == "iv")
     {
-      std::cout << "0.0.2" << std::endl;
+      std::cout << "0.0.3" << std::endl;
       return 0;
     }
   }
@@ -193,7 +193,10 @@ int MainLoop(int numArgs, char *args[])
   {
     if (std::string(args[1]) == "in")
     {
-      const std::string lockFilePath = args[2];
+      // args[2] is a full-path of a temporary file that was used as a lock.
+      // might be repurposed later
+
+      // const std::string lockFilePath = args[2];
       std::string buffer;
       while (std::getline(std::cin, buffer))
       {
@@ -234,16 +237,10 @@ int MainLoop(int numArgs, char *args[])
             static_cast<int>(parts.size() + 1),
             &vecArgs[0]
           );
+
+          // this string is used by n2os_sandbox as an end-of-output marker
+      	  printf("Nozomi-7zz done.\n");
           fflush(stdout);
-          std::string lockCheckFilePath = lockFilePath + ".check";
-          std::ofstream outCheckLock(lockCheckFilePath);
-          std::ifstream fin(filePath, std::ios::binary | std::ios::ate);
-          if (fin.good())
-          {
-            outCheckLock << fin.tellg();
-          }
-          outCheckLock.close();
-          rename(lockCheckFilePath.c_str(), lockFilePath.c_str());
         }
       }
     }
