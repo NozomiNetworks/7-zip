@@ -211,11 +211,23 @@ int MainLoop(int numArgs, char *args[])
           std::string s(buffer);
           const std::string delimiter = " ";
           std::vector<std::string> parts;
-          while ((pos = s.find(delimiter)) != std::string::npos)
+          bool foundLast = false;
+          while ((pos = s.find(delimiter)) != std::string::npos && !foundLast)
           {
+            if (s.find('\"') < pos) 
+            {
+              foundLast = true;
+            }
+            else
+            {
               arg = s.substr(0, pos);
               parts.push_back(arg);
               s.erase(0, pos + delimiter.length());
+            }
+          }
+          if (s.size() > 2 && s[0] == '\"' && s[s.size() - 1] == '\"')
+          {
+            s = s.substr(1, s.size() - 2);
           }
           parts.push_back(s.substr(0, s.size()));
           std::vector<char*> vecArgs;
