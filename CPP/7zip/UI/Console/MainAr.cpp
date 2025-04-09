@@ -265,7 +265,7 @@ int MainLoop(int numArgs, char *args[])
   {
     if (std::string(args[1]) == "iv")
     {
-      std::cout << "0.0.4" << std::endl;
+      std::cout << "0.0.5" << std::endl;
       return 0;
     }
   }
