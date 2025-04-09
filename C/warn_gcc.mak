@@ -19,6 +19,7 @@ CFLAGS_WARN_GCC_6 = \
 
 CFLAGS_WARN_GCC_9 = \
   -Waddress \
+  -Waddress-of-packed-member \
   -Waggressive-loop-optimizations \
   -Wattributes \
   -Wbool-compare \
