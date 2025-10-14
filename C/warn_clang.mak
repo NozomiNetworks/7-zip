@@ -1,1 +1,1 @@
-CFLAGS_WARN = -Wfatal-errors
+CFLAGS_WARN = -Weverything -Wfatal-errors
