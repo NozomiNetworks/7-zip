@@ -147,7 +147,7 @@ int Z7_CDECL main
 int MainWrapper(int numArgs, char *args[])
 {
   int res = 0;
-  
+
   try
   {
     #ifdef _WIN32
@@ -265,7 +265,7 @@ int MainLoop(int numArgs, char *args[])
   {
     if (std::string(args[1]) == "iv")
     {
-      std::cout << "0.0.5" << std::endl;
+      std::cout << "0.0.6" << std::endl;
       return 0;
     }
   }
@@ -294,7 +294,7 @@ int MainLoop(int numArgs, char *args[])
           bool foundLast = false;
           while ((pos = s.find(delimiter)) != std::string::npos && !foundLast)
           {
-            if (s.find('\"') < pos) 
+            if (s.find('\"') < pos)
             {
               foundLast = true;
             }
